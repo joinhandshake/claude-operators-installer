@@ -23,4 +23,8 @@ if ! gh auth status &>/dev/null 2>&1; then
 fi
 
 # 4. Install
-gh api repos/joinhandshake/claude-operators/contents/bin/install --jq '.content' | base64 -d | bash
+BRANCH="${BRANCH:-main}"
+REF_PARAM=""
+[ "$BRANCH" != "main" ] && REF_PARAM="?ref=$BRANCH"
+export BRANCH
+gh api "repos/joinhandshake/claude-operators/contents/bin/install${REF_PARAM}" --jq '.content' | base64 -d | bash
