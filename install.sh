@@ -16,11 +16,12 @@ if ! command -v gh &>/dev/null; then
   brew install gh
 fi
 
-# 3. Auth
+# 3. Auth + credential helper
 if ! gh auth status &>/dev/null 2>&1; then
   info "Log in to GitHub (browser will open)..."
   gh auth login --web -p https
 fi
+gh auth setup-git
 
 # 4. Install
 BRANCH="${BRANCH:-main}"
